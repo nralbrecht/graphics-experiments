@@ -1,0 +1,25 @@
+#pragma once
+
+#include <SFML/Graphics.hpp>
+
+#include "IExercise.h"
+
+class TransformationExercise : public IExercise
+{
+private:
+	const sf::RenderWindow &window;
+	float angle;
+	bool touchIsActive;
+	sf::Vector2f position;
+	sf::Vector2f nextPosition;
+
+public:
+	TransformationExercise(const sf::RenderWindow &window);
+	const char* GetName();
+    void ProcessEvent(sf::Event event);
+    void Update(float timeDelta);
+    void UpdateModelView();
+    void UpdateProjection();
+    void Draw();
+    void DrawGUI(const char* name);
+};
