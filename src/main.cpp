@@ -12,8 +12,7 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Kurven", sf::Style::Default, sf::ContextSettings(24, 8, 4, 1, 1));
-	// sf::Window window(sf::VideoMode(800, 600), "OpenGL Tutorial 03", sf::Style::Default, sf::ContextSettings(24, 8, 4, 3, 2));
+	sf::RenderWindow window(sf::VideoMode(800, 600), "Graphics Experiments", sf::Style::Default, sf::ContextSettings(24, 8, 4, 1, 1));
 	window.setVerticalSyncEnabled(true);
 	ImGui::SFML::Init(window);
 
@@ -27,7 +26,7 @@ int main()
 	exercises.push_back(new BezierExcercise(window));
 	exercises.push_back(new CameraExcercise(window));
 	
-	exercises[currentExercise]->UpdateProjection();
+	exercises.at(currentExercise)->UpdateProjection();
 
 	bool running = true;
 	while (running)
@@ -36,7 +35,7 @@ int main()
 		while (window.pollEvent(event))
 		{
 			ImGui::SFML::ProcessEvent(event);
-			exercises[currentExercise]->ProcessEvent(event);
+			exercises.at(currentExercise)->ProcessEvent(event);
 
 			if (event.type == sf::Event::Closed)
 			{
@@ -47,7 +46,7 @@ int main()
 			{
 				glViewport(0, 0, event.size.width, event.size.height);
 
-				exercises[currentExercise]->UpdateProjection();
+				exercises.at(currentExercise)->UpdateProjection();
 
 				std::printf("resized x:%d, y:%d\n", event.size.width, event.size.height);
 			}
@@ -61,52 +60,35 @@ int main()
 		ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 0.0f);
 		ImGui::Begin("Tab Test", NULL, ImGuiWindowFlags_NoDecoration  | ImGuiWindowFlags_NoMove);
 		if (ImGui::BeginTabBar("id")){
-			if (ImGui::BeginTabItem("Transformationen")) {
-				window.setTitle("Transformationen");
+			for (int i = 0; i < exercises.size(); ++i) {
+				if (ImGui::BeginTabItem(exercises.at(i)->GetName())) {
+					window.setTitle(exercises.at(i)->GetName());
 
-				if (currentExercise != 0) {
-					currentExercise = 0;
-					exercises[currentExercise]->UpdateProjection();
-					exercises[currentExercise]->UpdateModelView();
+					if (currentExercise != i) {
+						currentExercise = i;
+						exercises.at(currentExercise)->UpdateProjection();
+						exercises.at(currentExercise)->UpdateModelView();
+					}
+
+					ImGui::EndTabItem();
 				}
-
-				ImGui::EndTabItem();
 			}
-			if (ImGui::BeginTabItem("Kurven")) {
-				window.setTitle("Kurven");
-				if (currentExercise != 1) {
-					currentExercise = 1;
-					exercises[currentExercise]->UpdateProjection();
-					exercises[currentExercise]->UpdateModelView();
-				}
 
-				ImGui::EndTabItem();
-			}
-			if (ImGui::BeginTabItem("Kamera")) {
-				window.setTitle("Kamera");
-				if (currentExercise != 2) {
-					currentExercise = 2;
-					exercises[currentExercise]->UpdateProjection();
-					exercises[currentExercise]->UpdateModelView();
-				}
-
-				ImGui::EndTabItem();
-			}
 			ImGui::EndTabBar();
 		}
 		ImGui::End();
 		ImGui::PopStyleVar();
 
-		exercises[currentExercise]->Update(deltaTime.asSeconds());
+		exercises.at(currentExercise)->Update(deltaTime.asSeconds());
 
 		glEnable(GL_DEPTH_TEST);
 		glClearColor(0.1f,0.1f,0.1f,0.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		exercises[currentExercise]->Draw();
+		exercises.at(currentExercise)->Draw();
 		
 		window.pushGLStates();
-		exercises[currentExercise]->DrawGUI("Config");
+		exercises.at(currentExercise)->DrawGUI("Config");
 		ImGui::SFML::Render(window);
 		window.popGLStates();
 

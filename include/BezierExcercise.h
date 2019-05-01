@@ -35,6 +35,7 @@ private:
 
 public:
 	BezierExcercise(const sf::RenderWindow &window);
+	const char* GetName();
     void ProcessEvent(sf::Event event);
     void Update(float timeDelta);
     void UpdateModelView();

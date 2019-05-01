@@ -21,6 +21,10 @@ CameraExcercise::CameraExcercise(const sf::RenderWindow &window)
 	radius = 10.0f;
 }
 
+const char* CameraExcercise::GetName() {
+    return "Camera";
+}
+
 void CameraExcercise::ProcessEvent(sf::Event event) {
 	if (event.type == sf::Event::KeyPressed) {
 		if (event.key.code == sf::Keyboard::Left) {

@@ -7,6 +7,7 @@ class IExcercise
 {
     public:
         virtual ~IExcercise() {}
+        virtual const char* GetName() = 0;
         virtual void ProcessEvent(sf::Event event) = 0;
         virtual void Update(float timeDelta) = 0;
         virtual void UpdateModelView() = 0;

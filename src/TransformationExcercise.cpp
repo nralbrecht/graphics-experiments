@@ -18,6 +18,11 @@ TransformationExcercise::TransformationExcercise(const sf::RenderWindow &window)
 	nextPosition = sf::Vector2f(0.5f, 0.5f);
 }
 
+const char* TransformationExcercise::GetName() {
+    return "Transformation";
+}
+
+
 void TransformationExcercise::ProcessEvent(sf::Event event) {
 	if (event.type == sf::Event::MouseButtonPressed) {
 		// nextPosition = sf::Vector2f(event.mouseButton.x, event.mouseButton.y);

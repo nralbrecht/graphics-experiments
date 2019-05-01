@@ -67,6 +67,10 @@ BezierExcercise::BezierExcercise(const sf::RenderWindow &window)
     modifier.push_back(sf::Vector2f(1.0f, 0.0f));
 }
 
+const char* BezierExcercise::GetName() {
+    return "Bezier";
+}
+
 void BezierExcercise::ProcessEvent(sf::Event event) {}
 
 void BezierExcercise::Update(float timeDelta) {
