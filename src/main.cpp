@@ -5,10 +5,10 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
 
-#include "IExcercise.h"
-#include "BezierExcercise.h"
-#include "CameraExcercise.h"
-#include "TransformationExcercise.h"
+#include "IExercise.h"
+#include "BezierExercise.h"
+#include "CameraExercise.h"
+#include "TransformationExercise.h"
 
 int main()
 {
@@ -21,10 +21,10 @@ int main()
 
 	int currentExercise = 2;
 	
-	std::vector<IExcercise*> exercises;
-	exercises.push_back(new TransformationExcercise(window));
-	exercises.push_back(new BezierExcercise(window));
-	exercises.push_back(new CameraExcercise(window));
+	std::vector<IExercise*> exercises;
+	exercises.push_back(new TransformationExercise(window));
+	exercises.push_back(new BezierExercise(window));
+	exercises.push_back(new CameraExercise(window));
 	
 	exercises.at(currentExercise)->UpdateProjection();
 
