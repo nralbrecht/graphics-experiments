@@ -10,16 +10,16 @@ add_executable(${PROJECT_NAME}
   src/BezierExcercise.cpp
   src/TransformationExcercise.cpp
   src/CameraExcercise.cpp
-  include/imgui-1.69/imgui.cpp
-  include/imgui-1.69/imconfig.h
-  include/imgui-1.69/imgui_draw.cpp
-  include/imgui-1.69/imgui_widgets.cpp
-  include/imgui-sfml/imgui-SFML.cpp
+  extern/imgui/imgui.cpp
+  extern/imgui/imconfig.h
+  extern/imgui/imgui_draw.cpp
+  extern/imgui/imgui_widgets.cpp
+  extern/imgui-sfml/imgui-SFML.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/imgui-1.69>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/imgui-sfml>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/extern/imgui>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/extern/imgui-sfml>
   $<INSTALL_INTERFACE:include>
 )
 
