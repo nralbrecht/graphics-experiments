@@ -1,6 +1,7 @@
+#include <cmath>
+
 #include <SFML/OpenGL.hpp>
 #include <SFML/Graphics.hpp>
-#include <cmath>
 
 // Vector Helper
 

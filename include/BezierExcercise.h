@@ -1,8 +1,9 @@
 #ifndef BEZIER_EXCERCISE_H
 #define BEZIER_EXCERCISE_H
 
-#include "IExcercise.h"
 #include <SFML/Graphics.hpp>
+
+#include "IExcercise.h"
 
 class BezierExcercise : public IExcercise
 {

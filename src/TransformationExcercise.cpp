@@ -1,8 +1,10 @@
 #include <random>
+
 #include <imgui.h>
 #include <imgui-SFML.h>
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
+
 #include "SfmlHelper.h"
 #include "TransformationExcercise.h"
 

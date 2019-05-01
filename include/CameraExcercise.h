@@ -1,9 +1,10 @@
 #ifndef CAMERA_EXCERCISE_H
 #define CAMERA_EXCERCISE_H
 
-#include "IExcercise.h"
-#include <SFML/Graphics/RenderWindow.hpp>
 #include <glm/vec3.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+
+#include "IExcercise.h"
 
 class CameraExcercise : public IExcercise
 {

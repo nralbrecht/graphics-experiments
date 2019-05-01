@@ -1,8 +1,9 @@
 #ifndef TRANSFORMATION_EXCERCISE_H
 #define TRANSFORMATION_EXCERCISE_H
 
-#include "IExcercise.h"
 #include <SFML/Graphics.hpp>
+
+#include "IExcercise.h"
 
 class TransformationExcercise : public IExcercise
 {
