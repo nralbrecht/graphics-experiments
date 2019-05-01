@@ -1,5 +1,4 @@
-#ifndef SFML_HELPER_H
-#define SFML_HELPER_H
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -15,5 +14,3 @@ void drawCircle(sf::Vector2f center, float radius, int segments, sf::Vector3f co
 void drawLine(sf::Vector2f from, sf::Vector2f to, sf::Vector3f color);
 void drawPoint(sf::Vector2f v, sf::Vector3f color);
 sf::Vector3f getColor(float x);
-
-#endif

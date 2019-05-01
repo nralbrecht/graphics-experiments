@@ -1,5 +1,4 @@
-#ifndef I_EXCERCISE_H
-#define I_EXCERCISE_H
+#pragma once
 
 #include <SFML/Window/Event.hpp>
 
@@ -15,5 +14,3 @@ class IExcercise
         virtual void Draw() = 0;
         virtual void DrawGUI(const char* name) = 0;
 };
-
-#endif

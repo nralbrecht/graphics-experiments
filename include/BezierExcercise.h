@@ -1,5 +1,4 @@
-#ifndef BEZIER_EXCERCISE_H
-#define BEZIER_EXCERCISE_H
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -43,5 +42,3 @@ public:
     void Draw();
     void DrawGUI(const char* name);
 };
-
-#endif

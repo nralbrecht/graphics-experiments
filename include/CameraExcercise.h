@@ -1,5 +1,4 @@
-#ifndef CAMERA_EXCERCISE_H
-#define CAMERA_EXCERCISE_H
+#pragma once
 
 #include <glm/vec3.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -27,5 +26,3 @@ public:
     void Draw();
     void DrawGUI(const char* name);
 };
-
-#endif
