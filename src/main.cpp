@@ -8,6 +8,7 @@
 #include "IExercise.h"
 #include "BezierExercise.h"
 #include "CameraExercise.h"
+#include "DelaunayExercise.h"
 #include "TransformationExercise.h"
 
 int main()
@@ -25,6 +26,7 @@ int main()
 	exercises.push_back(new TransformationExercise(window));
 	exercises.push_back(new BezierExercise(window));
 	exercises.push_back(new CameraExercise(window));
+	exercises.push_back(new DelaunayExercise(window));
 	
 	exercises.at(currentExercise)->UpdateProjection();
 

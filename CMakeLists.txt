@@ -8,18 +8,21 @@ add_executable(${PROJECT_NAME}
   src/main.cpp
   src/SfmlHelper.cpp
   src/BezierExercise.cpp
-  src/TransformationExercise.cpp
   src/CameraExercise.cpp
+  src/DelaunayExercise.cpp
+  src/TransformationExercise.cpp
   extern/imgui/imgui.cpp
   extern/imgui/imconfig.h
   extern/imgui/imgui_draw.cpp
   extern/imgui/imgui_widgets.cpp
+  extern/delabella/delabella.cpp
   extern/imgui-sfml/imgui-SFML.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/extern/imgui>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/extern/delabella>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/extern/imgui-sfml>
   $<INSTALL_INTERFACE:include>
 )
