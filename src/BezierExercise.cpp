@@ -37,26 +37,26 @@ std::vector<sf::Vector2f> BezierExercise::getPolylineBesier(std::vector<sf::Vect
 }
 
 BezierExercise::BezierExercise(const sf::RenderWindow &window)
-	: window(window)
+    : window(window)
 {
 }
 
 void BezierExercise::Init() {
-	color = 0.0f;
-	stepCount = 30;
-	lineWidth = 0.2;
-	simulationSpeed = 1.0f;
+    color = 0.0f;
+    stepCount = 30;
+    lineWidth = 0.2;
+    simulationSpeed = 1.0f;
 
-	drawSteps = false;
-	drawModifiers = true;
-	drawCenterline = false;
-	drawModifierLine = true;
+    drawSteps = false;
+    drawModifiers = true;
+    drawCenterline = false;
+    drawModifierLine = true;
 
-	stepColor = sf::Vector3f(1.0f, 0.0f, 0.0f);
-	centerlineColor = sf::Vector3f(0.0f, 0.0f, 0.0f);
-	modifierLineColor = sf::Vector3f(0.1f, 0.1f, 1.0f);
-	modifierColor = sf::Vector3f(0.0f, 0.0f, 1.0f);
-	lineColor = sf::Vector3f(0.0f, 0.0f, 0.0f);
+    stepColor = sf::Vector3f(1.0f, 0.0f, 0.0f);
+    centerlineColor = sf::Vector3f(0.0f, 0.0f, 0.0f);
+    modifierLineColor = sf::Vector3f(0.1f, 0.1f, 1.0f);
+    modifierColor = sf::Vector3f(0.0f, 0.0f, 1.0f);
+    lineColor = sf::Vector3f(0.0f, 0.0f, 0.0f);
 
     modifier.push_back(sf::Vector2f(-1.0f, 0.0f));
     modifier.push_back(sf::Vector2f(-1.0f, -1.0f));
@@ -83,17 +83,17 @@ const char* BezierExercise::GetName() {
 void BezierExercise::ProcessEvent(sf::Event event) {}
 
 void BezierExercise::Update(float timeDelta) {
-	// Move Points
-	for (int i = 1; i < modifier.size() - 1; ++i) {
-	    if (vectorLength(modifierTarget[i - 1] - modifier[i]) < 0.15) {
-	        modifierTarget[i - 1].x = ((((float)std::rand() / (float)RAND_MAX) * 2) - 1) * 2;
-	        modifierTarget[i - 1].y = ((((float)std::rand() / (float)RAND_MAX) * 2) - 1) * 2;
-	    }
+    // Move Points
+    for (int i = 1; i < modifier.size() - 1; ++i) {
+        if (vectorLength(modifierTarget[i - 1] - modifier[i]) < 0.15) {
+            modifierTarget[i - 1].x = ((((float)std::rand() / (float)RAND_MAX) * 2) - 1) * 2;
+            modifierTarget[i - 1].y = ((((float)std::rand() / (float)RAND_MAX) * 2) - 1) * 2;
+        }
 
-	    modifier[i] = moveTowards(modifier[i], modifierTarget[i - 1], 0.1 * simulationSpeed);
-	}
+        modifier[i] = moveTowards(modifier[i], modifierTarget[i - 1], 0.1 * simulationSpeed);
+    }
 
-	// Approximate Points
+    // Approximate Points
     steps = getPolylineBesier(modifier, stepCount);
 
     // Color
@@ -163,7 +163,7 @@ void BezierExercise::Draw() {
 }
 
 void BezierExercise::DrawGUI(const char* name) {
-	ImGui::Begin(name);
+    ImGui::Begin(name);
         ImGui::Checkbox("Steps", &drawSteps);
         ImGui::Checkbox("Modifier", &drawModifiers);
         ImGui::Checkbox("Centerline", &drawCenterline);

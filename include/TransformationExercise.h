@@ -8,19 +8,19 @@
 class TransformationExercise : public IExercise
 {
 private:
-	bool isInitialized;
-	const sf::RenderWindow &window;
-	
-	float angle;
-	bool touchIsActive;
-	sf::Vector2f position;
-	sf::Vector2f nextPosition;
+    bool isInitialized;
+    const sf::RenderWindow &window;
+    
+    float angle;
+    bool touchIsActive;
+    sf::Vector2f position;
+    sf::Vector2f nextPosition;
 
 public:
-	TransformationExercise(const sf::RenderWindow &window);
-	void Init();
-	bool IsInitialized();
-	const char* GetName();
+    TransformationExercise(const sf::RenderWindow &window);
+    void Init();
+    bool IsInitialized();
+    const char* GetName();
     void ProcessEvent(sf::Event event);
     void Update(float timeDelta);
     void UpdateModelView();
