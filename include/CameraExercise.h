@@ -9,6 +9,7 @@
 class CameraExercise : public IExercise
 {
 private:
+	bool isInitialized;
 	const sf::RenderWindow &window;
 	glm::vec3 eye;
 	glm::vec3 la;
@@ -19,6 +20,8 @@ private:
 
 public:
 	CameraExercise(const sf::RenderWindow &window);
+	void Init();
+	bool IsInitialized();
 	const char* GetName();
 	void ProcessEvent(sf::Event event);
 	void Update(float timeDelta);

@@ -38,7 +38,10 @@ std::vector<sf::Vector2f> BezierExercise::getPolylineBesier(std::vector<sf::Vect
 
 BezierExercise::BezierExercise(const sf::RenderWindow &window)
 	: window(window)
-{	
+{
+}
+
+void BezierExercise::Init() {
 	color = 0.0f;
 	stepCount = 30;
 	lineWidth = 0.2;
@@ -65,6 +68,12 @@ BezierExercise::BezierExercise(const sf::RenderWindow &window)
     // modifier.push_back(sf::Vector2f(1.0f, 1.0f));
     modifierTarget.push_back(sf::Vector2f(1.0f, 1.0f));
     modifier.push_back(sf::Vector2f(1.0f, 0.0f));
+
+    isInitialized = true;
+}
+
+bool BezierExercise::IsInitialized() {
+    return isInitialized;
 }
 
 const char* BezierExercise::GetName() {

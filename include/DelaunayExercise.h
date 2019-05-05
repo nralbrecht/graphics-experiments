@@ -10,6 +10,7 @@
 class DelaunayExercise : public IExercise
 {
 private:
+	bool isInitialized;
 	const sf::RenderWindow &window;
 
 	int pointCount;
@@ -20,6 +21,8 @@ private:
 
 public:
 	DelaunayExercise(const sf::RenderWindow &window);
+	void Init();
+	bool IsInitialized();
 	const char* GetName();
     void ProcessEvent(sf::Event event);
     void Update(float timeDelta);

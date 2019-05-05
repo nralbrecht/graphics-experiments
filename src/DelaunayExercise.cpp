@@ -12,10 +12,19 @@
 DelaunayExercise::DelaunayExercise(const sf::RenderWindow &window)
 	: window(window)
 {
+}
+
+void DelaunayExercise::Init() {
 	pointCount = 10;
 	wireframe = true;
 	drawPoints = true;
 	this->UpdatePoints();
+
+	isInitialized = true;
+}
+
+bool DelaunayExercise::IsInitialized() {
+    return isInitialized;
 }
 
 const char* DelaunayExercise::GetName() {

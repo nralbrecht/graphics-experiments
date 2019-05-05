@@ -28,6 +28,7 @@ int main()
 	exercises.push_back(new CameraExercise(window));
 	exercises.push_back(new DelaunayExercise(window));
 	
+	exercises.at(currentExercise)->Init();
 	exercises.at(currentExercise)->UpdateProjection();
 
 	bool running = true;
@@ -67,6 +68,11 @@ int main()
 
 					if (currentExercise != i) {
 						currentExercise = i;
+						
+						if (!exercises.at(currentExercise)->IsInitialized()) {
+							exercises.at(currentExercise)->Init();
+						}
+
 						exercises.at(currentExercise)->UpdateProjection();
 						exercises.at(currentExercise)->UpdateModelView();
 					}

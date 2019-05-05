@@ -11,17 +11,25 @@
 TransformationExercise::TransformationExercise(const sf::RenderWindow &window)
 	: window(window)
 {
+}
+
+void TransformationExercise::Init() {
 	angle = 0;
 	touchIsActive = false;
 
 	position = sf::Vector2f(0.0f, 0.0f);
 	nextPosition = sf::Vector2f(0.5f, 0.5f);
+	
+	isInitialized = true;
+}
+
+bool TransformationExercise::IsInitialized() {
+    return isInitialized;
 }
 
 const char* TransformationExercise::GetName() {
     return "Transformation";
 }
-
 
 void TransformationExercise::ProcessEvent(sf::Event event) {
 	if (event.type == sf::Event::MouseButtonPressed) {

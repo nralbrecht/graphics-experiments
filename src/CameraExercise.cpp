@@ -13,12 +13,21 @@
 CameraExercise::CameraExercise(const sf::RenderWindow &window)
 	: window(window)
 {
+}
+
+void CameraExercise::Init() {
 	eye = glm::vec3(0, 0, 10);
 	la = glm::vec3(0, 0, 0);
 	up = glm::vec3(0, 1, 0);
 	angleX = 0.0f;
 	angleY = 0.0f;
 	radius = 10.0f;
+	
+	isInitialized = true;
+}
+
+bool CameraExercise::IsInitialized() {
+    return isInitialized;
 }
 
 const char* CameraExercise::GetName() {
