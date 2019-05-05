@@ -1,3 +1,4 @@
+#include <cmath>
 #include <random>
 
 #include <imgui.h>
@@ -16,12 +17,13 @@ CameraExercise::CameraExercise(const sf::RenderWindow &window)
 }
 
 void CameraExercise::Init() {
-    eye = glm::vec3(0, 0, 10);
+    eye = glm::vec3(10, 0, 0);
     la = glm::vec3(0, 0, 0);
     up = glm::vec3(0, 1, 0);
-    angleX = 0.0f;
-    angleY = 0.0f;
+    angleX = M_PI / 4.0f;
+    angleY = M_PI / 3.0f;
     radius = 10.0f;
+    isMouseDown = false;
     
     isInitialized = true;
 }
@@ -37,24 +39,53 @@ const char* CameraExercise::GetName() {
 void CameraExercise::ProcessEvent(sf::Event event) {
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Left) {
-            angleX += 0.1f;
-        }
-        else if (event.key.code == sf::Keyboard::Right) {
             angleX -= 0.1f;
         }
-        else if (event.key.code == sf::Keyboard::Down) {
+        else if (event.key.code == sf::Keyboard::Right) {
+            angleX += 0.1f;
+        }
+        else if (event.key.code == sf::Keyboard::Down && angleY > 0.1f) {
+            angleY -= 0.1f;
+        }
+        else if (event.key.code == sf::Keyboard::Up && angleY < M_PI - 0.1f) {
             angleY += 0.1f;
         }
-        else if (event.key.code == sf::Keyboard::Up) {
-            angleY -= 0.1f;
+    }
+    else if (event.type == sf::Event::MouseButtonPressed) {
+        if (event.mouseButton.button == sf::Mouse::Left) {
+            isMouseDown = true;
+        }
+    }
+    else if (event.type == sf::Event::MouseButtonReleased) {
+        if (event.mouseButton.button == sf::Mouse::Left) {
+            isMouseDown = false;
+        }
+    }
+    else if (event.type == sf::Event::MouseMoved) {
+        sf::Vector2f lastMousePosition = mousePosition;
+        mousePosition = sf::Vector2f(event.mouseMove.x, event.mouseMove.y);
+
+        if (isMouseDown) {
+            mouseDelta.x += mousePosition.x - lastMousePosition.x;
+            mouseDelta.y -= mousePosition.y - lastMousePosition.y;
         }
     }
 }
 
 void CameraExercise::Update(float timeDelta) {
-    eye.x = radius * cos(angleX) * sin(angleY);
-    eye.y = radius * sin(angleX) * sin(angleY);
-    eye.z = radius * cos(angleY);
+    float deltaX = angleX + mouseDelta.x * 0.01f;
+    float deltaY = angleY + mouseDelta.y * 0.01f;
+
+    if (deltaY < 0.05f) {
+        deltaY = 0.05f;
+    }
+    if (deltaY > M_PI - 0.05f) {
+        deltaY = M_PI - 0.05f;
+    }
+
+    eye.x = radius * cos(deltaX) * sin(deltaY);
+    eye.y = radius * cos(deltaY);
+    eye.z = radius * sin(deltaX) * sin(deltaY);
 }
 
 void CameraExercise::UpdateModelView() {

@@ -18,6 +18,10 @@ private:
     float angleY;
     float radius;
 
+    bool isMouseDown;
+    sf::Vector2f mouseDelta;
+    sf::Vector2f mousePosition;
+
 public:
     CameraExercise(const sf::RenderWindow &window);
     void Init();
