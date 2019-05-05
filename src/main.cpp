@@ -40,7 +40,6 @@ int main()
 			if (event.type == sf::Event::Closed)
 			{
 				running = false;
-				std::printf("closing...\n");
 			}
 			else if (event.type == sf::Event::Resized)
 			{

@@ -1,6 +1,11 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include <vector>
+
+#include <SFML/Window/Event.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/System/Vector3.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 #include "IExercise.h"
 

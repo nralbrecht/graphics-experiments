@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/vec3.hpp>
+#include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "IExercise.h"
@@ -19,10 +20,10 @@ private:
 public:
 	CameraExercise(const sf::RenderWindow &window);
 	const char* GetName();
-    void ProcessEvent(sf::Event event);
-    void Update(float timeDelta);
-    void UpdateModelView();
-    void UpdateProjection();
-    void Draw();
-    void DrawGUI(const char* name);
+	void ProcessEvent(sf::Event event);
+	void Update(float timeDelta);
+	void UpdateModelView();
+	void UpdateProjection();
+	void Draw();
+	void DrawGUI(const char* name);
 };
