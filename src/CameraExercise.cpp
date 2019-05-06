@@ -10,10 +10,18 @@
 
 #include "SfmlHelper.h"
 #include "CameraExercise.h"
+#include "CubePrimitive.h"
+#include "SpherePrimitive.h"
 
 CameraExercise::CameraExercise(const sf::RenderWindow &window)
     : window(window)
 {
+}
+
+CameraExercise::~CameraExercise() {
+    for (int i = 0; i < primitives.size(); ++i) {
+        delete primitives[i];
+    }
 }
 
 void CameraExercise::Init() {
@@ -24,6 +32,9 @@ void CameraExercise::Init() {
     angleY = M_PI / 3.0f;
     radius = 10.0f;
     isMouseDown = false;
+
+    primitives.push_back(new CubePrimitive(sf::Vector3f(0.0f, 0.0f, 0.0f)));
+    primitives.push_back(new SpherePrimitive(5, sf::Vector3f(0.0f, 0.0f, 0.0f), 0.5f));
     
     isInitialized = true;
 }
@@ -104,70 +115,16 @@ void CameraExercise::UpdateProjection() {
     glm::mat4 projMatr = glm::perspective(fov, aspect, near_plane, far_plane);
     glMatrixMode(GL_PROJECTION);
     glLoadMatrixf(&(projMatr[0][0]));
-
-    // glMatrixMode(GL_PROJECTION);
-    // glLoadIdentity();
-    // glOrtho( -2 * aspect, 2 * aspect, -2, 2, -2, 2);
 }
 
 void CameraExercise::Draw() {
     UpdateModelView();
 
-    glBegin(GL_TRIANGLES);
-
-    glColor3f(1.0f,  1.0f, 1.0f);
-    glVertex3f(-0.5f, -0.5f, -0.5f);
-    glVertex3f(0.5f, -0.5f, -0.5f);
-    glVertex3f(0.5f, 0.5f, -0.5f);
-    glVertex3f(0.5f, 0.5f, -0.5f);
-    glVertex3f(-0.5f, 0.5f, -0.5f);
-    glVertex3f(-0.5f, -0.5f, -0.5f);
-
-    glColor3f(1.0f,  0.0f,  1.0f);
-    glVertex3f(-0.5f, -0.5f, 0.5f);
-    glVertex3f(0.5f, -0.5f, 0.5f);
-    glVertex3f(0.5f, 0.5f, 0.5f);
-    glVertex3f(0.5f, 0.5f, 0.5f);
-    glVertex3f(-0.5f, 0.5f, 0.5f);
-    glVertex3f(-0.5f, -0.5f, 0.5f);
-
-    glColor3f(0.0f,  1.0f,  0.0f);
-    glVertex3f(-0.5f, 0.5f, 0.5f);
-    glVertex3f(-0.5f, 0.5f, -0.5f);
-    glVertex3f(-0.5f, -0.5f, -0.5f);
-    glVertex3f(-0.5f, -0.5f, -0.5f);
-    glVertex3f(-0.5f, -0.5f, 0.5f);
-    glVertex3f(-0.5f, 0.5f, 0.5f);
-
-    glColor3f(0.0f,  0.0f,  1.0f);
-    glVertex3f(0.5f, 0.5f, 0.5f);
-    glVertex3f(0.5f, 0.5f, -0.5f);
-    glVertex3f(0.5f, -0.5f, -0.5f);
-    glVertex3f(0.5f, -0.5f, -0.5f);
-    glVertex3f(0.5f, -0.5f, 0.5f);
-    glVertex3f(0.5f, 0.5f, 0.5f);
-
-    glColor3f(1.0f,  0.0f,  0.0f);
-    glVertex3f(-0.5f, -0.5f, -0.5f);
-    glVertex3f(0.5f, -0.5f, -0.5f);
-    glVertex3f(0.5f, -0.5f, 0.5f);
-    glVertex3f(0.5f, -0.5f, 0.5f);
-    glVertex3f(-0.5f, -0.5f, 0.5f);
-    glVertex3f(-0.5f, -0.5f, -0.5f);
-
-    glColor3f(0.0f,  0.0f,  0.0f);
-    glVertex3f(-0.5f, 0.5f, -0.5f);
-    glVertex3f(0.5f, 0.5f, -0.5f);
-    glVertex3f(0.5f, 0.5f, 0.5f);
-    glVertex3f(0.5f, 0.5f, 0.5f);
-    glVertex3f(-0.5f, 0.5f, 0.5f);
-    glVertex3f(-0.5f, 0.5f, -0.5f);
-
-    glEnd();
+    primitives.at(selectedObject)->Draw();
 }
 
 void CameraExercise::DrawGUI(const char* name) {
     ImGui::Begin(name);
-        ImGui::Text("Text");
+        ImGui::ListBox("Object", &selectedObject, objects, 2);
     ImGui::End();
 }

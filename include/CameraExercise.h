@@ -5,6 +5,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "IExercise.h"
+#include "IPrimitive.h"
 
 class CameraExercise : public IExercise
 {
@@ -18,12 +19,17 @@ private:
     float angleY;
     float radius;
 
+    int selectedObject = 0;
+    const char* objects[2] = { "Cube", "Sphere" };
+    std::vector<IPrimitive*> primitives;
+
     bool isMouseDown;
     sf::Vector2f mouseDelta;
     sf::Vector2f mousePosition;
 
 public:
     CameraExercise(const sf::RenderWindow &window);
+    ~CameraExercise();
     void Init();
     bool IsInitialized();
     const char* GetName();

@@ -49,8 +49,6 @@ int main()
                 glViewport(0, 0, event.size.width, event.size.height);
 
                 exercises.at(currentExercise)->UpdateProjection();
-
-                std::printf("resized x:%d, y:%d\n", event.size.width, event.size.height);
             }
         }
 

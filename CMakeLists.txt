@@ -7,10 +7,15 @@ cmake_policy(SET CMP0072 NEW)
 add_executable(${PROJECT_NAME}
   src/main.cpp
   src/SfmlHelper.cpp
+  
   src/BezierExercise.cpp
   src/CameraExercise.cpp
   src/DelaunayExercise.cpp
   src/TransformationExercise.cpp
+  
+  src/CubePrimitive.cpp
+  src/SpherePrimitive.cpp
+
   extern/imgui/imgui.cpp
   extern/imgui/imconfig.h
   extern/imgui/imgui_draw.cpp
