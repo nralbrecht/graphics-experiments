@@ -34,7 +34,7 @@ void CameraExercise::Init() {
     isMouseDown = false;
 
     primitives.push_back(new CubePrimitive(sf::Vector3f(0.0f, 0.0f, 0.0f)));
-    primitives.push_back(new SpherePrimitive(5, sf::Vector3f(0.0f, 0.0f, 0.0f), 0.5f));
+    primitives.push_back(new SpherePrimitive(500, sf::Vector3f(0.0f, 0.0f, 0.0f), 0.5f));
     
     isInitialized = true;
 }

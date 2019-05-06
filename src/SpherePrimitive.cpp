@@ -26,7 +26,8 @@ SpherePrimitive::SpherePrimitive(int points, sf::Vector3f center, float radius) 
 
     IDelaBella* idb = IDelaBella::Create();
 
-    int verts = idb->Triangulate(points, &vertices[0].x, &vertices[0].y, sizeof(sf::Vector2f));
+    // int verts = idb->Triangulate(points, &vertices[0].x, &vertices[0].y, sizeof(sf::Vector2f));
+    int verts = idb->Triangulate(points, &projection[0].x, &projection[0].y, sizeof(sf::Vector2f));
 
     if (verts > 0) {
         int tris = verts / 3;
@@ -45,8 +46,6 @@ SpherePrimitive::SpherePrimitive(int points, sf::Vector3f center, float radius) 
 
     idb->Destroy();
 
-    // tri = list(Delaunay(vertices).simplices.copy())
-
     indices.push_back(0);
     indices.push_back(1);
     indices.push_back(3);
@@ -62,10 +61,11 @@ SpherePrimitive::SpherePrimitive(int points, sf::Vector3f center, float radius) 
 
 void SpherePrimitive::Draw() {
     glBegin(GL_TRIANGLES);
-        glColor3f(fillColor.x, fillColor.y, fillColor.z);
+        // glColor3f(fillColor.x, fillColor.y, fillColor.z);
         for(auto const& index: indices) {
             const sf::Vector3f v = vertices.at(index);
-            glVertex2f(v.x, v.y);
+            glVertex3f(v.x, v.y, v.z);
+            glColor3f(v.x, v.y, v.z);
         }
     glEnd();
 }
