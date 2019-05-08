@@ -6,13 +6,13 @@
 #include <SFML/System/Vector3.hpp>
 #include <delabella.h>
 
-#include <CubePrimitive.h>
+#include <CubeShape.h>
 
-CubePrimitive::CubePrimitive(sf::Vector3f center) {
+CubeShape::CubeShape(sf::Vector3f center) {
     fillColor = sf::Vector3f(0.0f, 1.0f, 0.f);
 }
 
-void CubePrimitive::Draw() {
+void CubeShape::Draw() {
     // Temporary solution
     
     glBegin(GL_TRIANGLES);
@@ -68,5 +68,5 @@ void CubePrimitive::Draw() {
     glEnd();
 }
 
-void CubePrimitive::Translate(sf::Vector3f translation) {
+void CubeShape::Translate(sf::Vector3f translation) {
 }

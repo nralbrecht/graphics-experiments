@@ -3,18 +3,18 @@
 #include <vector>
 #include <SFML/System/Vector3.hpp>
 
-#include "IPrimitive.h"
+#include "IShape.h"
 
-class SpherePrimitive : public IPrimitive
+class CubeShape : public IShape
 {
 private:
     std::vector<int> indices;
     std::vector<sf::Vector3f> vertices;
     
 public:
-	sf::Vector3f fillColor;
+    sf::Vector3f fillColor;
 
-    SpherePrimitive(int points, sf::Vector3f center, float radius);
+    CubeShape(sf::Vector3f center);
     void Draw();
     void Translate(sf::Vector3f translation);
 };

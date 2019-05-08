@@ -2,7 +2,7 @@
 
 #include <SFML/System/Vector3.hpp>
 
-class IPrimitive
+class IShape
 {
 public:
     virtual void Draw() = 0;

@@ -6,7 +6,11 @@
 // Vector Helper
 
 float vectorLength(sf::Vector2f v) {
-    return std::sqrt(v.x*v.x+v.y*v.y);
+    return std::sqrt(v.x*v.x + v.y*v.y);
+}
+
+float vectorLength(sf::Vector3f v) {
+    return std::sqrt(v.x*v.x + v.y*v.y + v.z*v.z);
 }
 
 sf::Vector2f normalizeToLength(sf::Vector2f v, float length) {
@@ -15,6 +19,17 @@ sf::Vector2f normalizeToLength(sf::Vector2f v, float length) {
 
     result.x = (result.x / vLength) * length;
     result.y = (result.y / vLength) * length;
+    
+    return result;
+}
+
+sf::Vector3f normalizeToLength(sf::Vector3f v, float length) {
+    sf::Vector3f result(v);
+    float vLength = vectorLength(result);
+
+    result.x = (result.x / vLength) * length;
+    result.y = (result.y / vLength) * length;
+    result.z = (result.z / vLength) * length;
     
     return result;
 }

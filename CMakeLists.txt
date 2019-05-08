@@ -13,8 +13,11 @@ add_executable(${PROJECT_NAME}
   src/DelaunayExercise.cpp
   src/TransformationExercise.cpp
   
-  src/CubePrimitive.cpp
-  src/SpherePrimitive.cpp
+  src/CubeShape.cpp
+  src/MeshShape.cpp
+  src/SphereShape.cpp
+
+  src/PlyLoader.cpp
 
   extern/imgui/imgui.cpp
   extern/imgui/imconfig.h
@@ -43,3 +46,7 @@ target_link_libraries(${PROJECT_NAME}
   OpenGL::GL
   sfml-system sfml-window sfml-graphics
 )
+
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_directory
+  ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources)

@@ -5,7 +5,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "IExercise.h"
-#include "IPrimitive.h"
+#include "IShape.h"
 
 class CameraExercise : public IExercise
 {
@@ -20,9 +20,10 @@ private:
     float radius;
 
     int selectedObject = 0;
-    const char* objects[2] = { "Cube", "Sphere" };
-    std::vector<IPrimitive*> primitives;
+    const char* objects[3] = { "Cube", "Sphere", "Bunny" };
+    std::vector<IShape*> shapes;
 
+    float zoom;
     bool isMouseDown;
     sf::Vector2f mouseDelta;
     sf::Vector2f mousePosition;

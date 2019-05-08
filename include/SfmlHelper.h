@@ -4,7 +4,9 @@
 
 // Vector Helper
 float vectorLength(sf::Vector2f v);
+float vectorLength(sf::Vector3f v);
 sf::Vector2f normalizeToLength(sf::Vector2f v, float length);
+sf::Vector3f normalizeToLength(sf::Vector3f v, float length);
 sf::Vector3f crossProduct(sf::Vector3f a, sf::Vector3f b);
 sf::Vector2f moveTowards(sf::Vector2f from, sf::Vector2f to, float distance);
 

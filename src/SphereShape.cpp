@@ -6,9 +6,9 @@
 #include <SFML/System/Vector3.hpp>
 #include <delabella.h>
 
-#include <SpherePrimitive.h>
+#include <SphereShape.h>
 
-SpherePrimitive::SpherePrimitive(int points, sf::Vector3f center, float radius) {
+SphereShape::SphereShape(int points, sf::Vector3f center, float radius) {
     fillColor = sf::Vector3f(0.0f, 1.0f, 0.f);
 
     std::vector<sf::Vector2f> projection;
@@ -59,7 +59,7 @@ SpherePrimitive::SpherePrimitive(int points, sf::Vector3f center, float radius) 
     indices.push_back(4);
 }
 
-void SpherePrimitive::Draw() {
+void SphereShape::Draw() {
     glBegin(GL_TRIANGLES);
         // glColor3f(fillColor.x, fillColor.y, fillColor.z);
         for(auto const& index: indices) {
@@ -70,5 +70,5 @@ void SpherePrimitive::Draw() {
     glEnd();
 }
 
-void SpherePrimitive::Translate(sf::Vector3f translation) {
+void SphereShape::Translate(sf::Vector3f translation) {
 }

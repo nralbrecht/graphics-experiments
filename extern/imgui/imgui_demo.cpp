@@ -4073,8 +4073,8 @@ static void ShowExampleAppCustomRendering(bool* p_open)
 
     if (ImGui::BeginTabBar("##TabBar"))
     {
-        // Primitives
-        if (ImGui::BeginTabItem("Primitives"))
+        // Shapes
+        if (ImGui::BeginTabItem("Shapes"))
         {
             static float sz = 36.0f;
             static float thickness = 3.0f;

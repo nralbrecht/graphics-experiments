@@ -10,8 +10,10 @@
 
 #include "SfmlHelper.h"
 #include "CameraExercise.h"
-#include "CubePrimitive.h"
-#include "SpherePrimitive.h"
+#include "CubeShape.h"
+#include "SphereShape.h"
+#include "MeshShape.h"
+#include "PlyLoader.h"
 
 CameraExercise::CameraExercise(const sf::RenderWindow &window)
     : window(window)
@@ -19,8 +21,8 @@ CameraExercise::CameraExercise(const sf::RenderWindow &window)
 }
 
 CameraExercise::~CameraExercise() {
-    for (int i = 0; i < primitives.size(); ++i) {
-        delete primitives[i];
+    for (int i = 0; i < shapes.size(); ++i) {
+        delete shapes[i];
     }
 }
 
@@ -32,10 +34,12 @@ void CameraExercise::Init() {
     angleY = M_PI / 3.0f;
     radius = 10.0f;
     isMouseDown = false;
+    zoom = 23.0f;
 
-    primitives.push_back(new CubePrimitive(sf::Vector3f(0.0f, 0.0f, 0.0f)));
-    primitives.push_back(new SpherePrimitive(500, sf::Vector3f(0.0f, 0.0f, 0.0f), 0.5f));
-    
+    shapes.push_back(new CubeShape(sf::Vector3f(0.0f, 0.0f, 0.0f)));
+    shapes.push_back(new SphereShape(500, sf::Vector3f(0.0f, 0.0f, 0.0f), 0.5f));
+    shapes.push_back(new MeshShape(new PlyLoader("./resources/bun180.ply")));
+
     isInitialized = true;
 }
 
@@ -81,6 +85,13 @@ void CameraExercise::ProcessEvent(sf::Event event) {
             mouseDelta.y -= mousePosition.y - lastMousePosition.y;
         }
     }
+    else if (event.type == sf::Event::MouseWheelScrolled) {
+        zoom -= event.mouseWheelScroll.delta;
+
+        if (zoom < 0.1f) {
+            zoom = 0.1f;
+        }
+    }
 }
 
 void CameraExercise::Update(float timeDelta) {
@@ -97,6 +108,11 @@ void CameraExercise::Update(float timeDelta) {
     eye.x = radius * cos(deltaX) * sin(deltaY);
     eye.y = radius * cos(deltaY);
     eye.z = radius * sin(deltaX) * sin(deltaY);
+
+    sf::Vector3f temp = normalizeToLength(sf::Vector3f(eye.x, eye.y, eye.z), (std::pow(2, zoom) / 1000000.0f) + 1.0f);
+    eye.x = temp.x;
+    eye.y = temp.y;
+    eye.z = temp.z;
 }
 
 void CameraExercise::UpdateModelView() {
@@ -120,11 +136,11 @@ void CameraExercise::UpdateProjection() {
 void CameraExercise::Draw() {
     UpdateModelView();
 
-    primitives.at(selectedObject)->Draw();
+    shapes.at(selectedObject)->Draw();
 }
 
 void CameraExercise::DrawGUI(const char* name) {
     ImGui::Begin(name);
-        ImGui::ListBox("Object", &selectedObject, objects, 2);
+        ImGui::ListBox("Object", &selectedObject, objects, 3);
     ImGui::End();
 }
