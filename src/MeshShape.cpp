@@ -14,9 +14,6 @@ MeshShape::MeshShape(ILoader * loader) {
 	vertices = loader->GetVertices();
 
     delete loader;
-
-    std::cout << "vertices: " << vertices.size() << std::endl;
-    std::cout << "indices:  " << indices.size() << std::endl;
 }
 
 void MeshShape::Draw() {

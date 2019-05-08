@@ -34,7 +34,7 @@ void CameraExercise::Init() {
     angleY = M_PI / 3.0f;
     radius = 10.0f;
     isMouseDown = false;
-    zoom = 23.0f;
+    zoom = 40.0f;
 
     shapes.push_back(new CubeShape(sf::Vector3f(0.0f, 0.0f, 0.0f)));
     shapes.push_back(new SphereShape(500, sf::Vector3f(0.0f, 0.0f, 0.0f), 0.5f));
@@ -109,7 +109,7 @@ void CameraExercise::Update(float timeDelta) {
     eye.y = radius * cos(deltaY);
     eye.z = radius * sin(deltaX) * sin(deltaY);
 
-    sf::Vector3f temp = normalizeToLength(sf::Vector3f(eye.x, eye.y, eye.z), (std::pow(2, zoom) / 1000000.0f) + 1.0f);
+    sf::Vector3f temp = normalizeToLength(sf::Vector3f(eye.x, eye.y, eye.z), (0.0001591*zoom*zoom*zoom) - (0.002788*zoom*zoom) + (0.03712*zoom) + 0.1);
     eye.x = temp.x;
     eye.y = temp.y;
     eye.z = temp.z;
