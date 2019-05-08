@@ -34,7 +34,7 @@ PlyLoader::PlyLoader(const char* path) {
                 if (results.at(1) == "vertex") {
                     remainingVertices = std::stoi(results.at(2));
                 }
-                if (results.at(1) == "range_grid") {
+                if (results.at(1) == "face") {
                     remainingIndices = std::stoi(results.at(2));
                 }
             }
@@ -58,42 +58,17 @@ PlyLoader::PlyLoader(const char* path) {
                 std::vector<std::string> results(std::istream_iterator<std::string>{iss},
                         std::istream_iterator<std::string>());
 
-                if (results.at(0) == "1") {
-                    indices.push_back(std::stoul(results.at(1)));
+                for (int i = 1; i <= std::stoi(results.at(0)); ++i) {
+                    indices.push_back(std::stoul(results.at(i)));
                 }
 
                 remainingIndices--;
             }
             else {
                 std::cout << "error on line " << lineNumber << ": expecting vertex or index" << std::endl;
+                throw;
             }
         }
-    }
-
-    std::vector<sf::Vector2f> projection;
-
-    for(auto const& v: vertices) {
-        projection.push_back(sf::Vector2f(v.x / (1 - v.z), v.y / (1 - v.z)));
-    }
-
-    IDelaBella* idb = IDelaBella::Create();
-
-    // int verts = idb->Triangulate(points, &vertices[0].x, &vertices[0].y, sizeof(sf::Vector2f));
-    int verts = idb->Triangulate(projection.size(), &projection[0].x, &projection[0].y, sizeof(sf::Vector2f));
-
-    if (verts > 0) {
-        int tris = verts / 3;
-        const DelaBella_Triangle* dela = idb->GetFirstDelaunayTriangle();
-        for (int i = 0; i < tris; i++) {
-            indices.push_back(dela->v[0]->i);
-            indices.push_back(dela->v[1]->i);
-            indices.push_back(dela->v[2]->i);
-
-            dela = dela->next;
-        }
-    }
-    else {
-        printf("could not triangulate: %d\n", verts);
     }
 }
 

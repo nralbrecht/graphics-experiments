@@ -38,7 +38,7 @@ void CameraExercise::Init() {
 
     shapes.push_back(new CubeShape(sf::Vector3f(0.0f, 0.0f, 0.0f)));
     shapes.push_back(new SphereShape(500, sf::Vector3f(0.0f, 0.0f, 0.0f), 0.5f));
-    shapes.push_back(new MeshShape(new PlyLoader("./resources/bun180.ply")));
+    shapes.push_back(new MeshShape(new PlyLoader("./resources/bun_zipper.ply")));
 
     isInitialized = true;
 }
