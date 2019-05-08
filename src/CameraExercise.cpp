@@ -105,11 +105,12 @@ void CameraExercise::Update(float timeDelta) {
         deltaY = M_PI - 0.05f;
     }
 
-    eye.x = radius * cos(deltaX) * sin(deltaY);
-    eye.y = radius * cos(deltaY);
-    eye.z = radius * sin(deltaX) * sin(deltaY);
+    sf::Vector3f unnormalizedEye(
+        radius * cos(deltaX) * sin(deltaY),
+        radius * cos(deltaY),
+        radius * sin(deltaX) * sin(deltaY));
 
-    sf::Vector3f temp = normalizeToLength(sf::Vector3f(eye.x, eye.y, eye.z), (0.0001591*zoom*zoom*zoom) - (0.002788*zoom*zoom) + (0.03712*zoom) + 0.1);
+    sf::Vector3f temp = normalizeToLength(unnormalizedEye, (0.0001591*zoom*zoom*zoom) - (0.002788*zoom*zoom) + (0.03712*zoom) + 0.1);
     eye.x = temp.x;
     eye.y = temp.y;
     eye.z = temp.z;
