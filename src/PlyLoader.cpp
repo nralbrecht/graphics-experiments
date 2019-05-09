@@ -76,6 +76,14 @@ std::vector<sf::Vector3f> PlyLoader::GetVertices() {
     return vertices;
 }
 
+std::vector<sf::Vector3f> PlyLoader::GetNormals() {
+    return std::vector<sf::Vector3f>();
+}
+
 std::vector<unsigned int> PlyLoader::GetIndices() {
     return indices;
+}
+
+std::vector<unsigned int> PlyLoader::GetNormalIndices() {
+    return std::vector<unsigned int>();
 }

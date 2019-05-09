@@ -20,7 +20,7 @@ private:
     float radius;
 
     int selectedObject = 0;
-    const char* objects[3] = { "Cube", "Sphere", "Bunny" };
+    const char* objects[4] = { "Cube", "Sphere", "Bunny", "Obj" };
     std::vector<IShape*> shapes;
 
     float zoom;

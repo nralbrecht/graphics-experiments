@@ -1,4 +1,7 @@
 #include <cmath>
+#include <string>
+#include <vector>
+#include <sstream>
 
 #include <SFML/OpenGL.hpp>
 #include <SFML/Graphics.hpp>
@@ -134,4 +137,18 @@ sf::Vector3f getColor(float x) {
     }
 
     return sf::Vector3f(red, green, blue);
+}
+
+// String helper
+
+std::vector<std::string> split(const std::string& s, char delimiter)
+{
+   std::vector<std::string> tokens;
+   std::string token;
+   std::istringstream tokenStream(s);
+   while (std::getline(tokenStream, token, delimiter))
+   {
+      tokens.push_back(token);
+   }
+   return tokens;
 }

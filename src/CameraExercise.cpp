@@ -13,7 +13,9 @@
 #include "CubeShape.h"
 #include "SphereShape.h"
 #include "MeshShape.h"
+
 #include "PlyLoader.h"
+#include "ObjLoader.h"
 
 CameraExercise::CameraExercise(const sf::RenderWindow &window)
     : window(window)
@@ -39,7 +41,7 @@ void CameraExercise::Init() {
     shapes.push_back(new CubeShape(sf::Vector3f(0.0f, 0.0f, 0.0f)));
     shapes.push_back(new SphereShape(500, sf::Vector3f(0.0f, 0.0f, 0.0f), 0.5f));
     shapes.push_back(new MeshShape(new PlyLoader("./resources/bun_zipper.ply")));
-
+    shapes.push_back(new MeshShape(new ObjLoader("./resources/cube.obj")));
     isInitialized = true;
 }
 
@@ -142,6 +144,6 @@ void CameraExercise::Draw() {
 
 void CameraExercise::DrawGUI(const char* name) {
     ImGui::Begin(name);
-        ImGui::ListBox("Object", &selectedObject, objects, 3);
+        ImGui::ListBox("Object", &selectedObject, objects, shapes.size());
     ImGui::End();
 }

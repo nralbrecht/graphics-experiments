@@ -1,5 +1,8 @@
 #pragma once
 
+#include <string>
+#include <vector>
+
 #include <SFML/Graphics.hpp>
 
 // Vector Helper
@@ -16,3 +19,6 @@ void drawCircle(sf::Vector2f center, float radius, int segments, sf::Vector3f co
 void drawLine(sf::Vector2f from, sf::Vector2f to, sf::Vector3f color);
 void drawPoint(sf::Vector2f v, sf::Vector3f color);
 sf::Vector3f getColor(float x);
+
+// String Helper
+std::vector<std::string> split(const std::string& s, char delimiter);

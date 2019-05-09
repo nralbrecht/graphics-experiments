@@ -18,6 +18,7 @@ add_executable(${PROJECT_NAME}
   src/SphereShape.cpp
 
   src/PlyLoader.cpp
+  src/ObjLoader.cpp
 
   extern/imgui/imgui.cpp
   extern/imgui/imconfig.h

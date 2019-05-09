@@ -10,20 +10,31 @@
 #include "MeshShape.h"
 
 MeshShape::MeshShape(ILoader * loader) {
-	indices = loader->GetIndices();
-	vertices = loader->GetVertices();
+    normals = loader->GetNormals();
+    vertices = loader->GetVertices();
+
+    indices = loader->GetIndices();
+    normalIndices = loader->GetNormalIndices();
 
     delete loader;
 }
 
 void MeshShape::Draw() {
     glBegin(GL_TRIANGLES);
-        // glColor3f(fillColor.x, fillColor.y, fillColor.z);
+        glColor3f(0.0f, 1.0f, 0.0f);
 
-        for(auto const& index: indices) {
-            const sf::Vector3f v = vertices.at(index);
-            glVertex3f(v.x, v.y, v.z);
-            glColor3f(v.x, v.y, v.z);
+        for (int i = 0; i < indices.size(); ++i) {
+            const sf::Vector3f vertex = vertices.at(indices.at(i));
+
+            if (indices.size() == normalIndices.size()) {
+                const sf::Vector3f normal = normals.at(normalIndices.at(i));
+                glColor3f(normal.x, normal.y, normal.z);
+            }
+            else {
+                glColor3f(vertex.x, vertex.y, vertex.z);
+            }
+
+            glVertex3f(vertex.x, vertex.y, vertex.z);
         }
     glEnd();
 }

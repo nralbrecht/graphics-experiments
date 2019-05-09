@@ -8,8 +8,11 @@
 class MeshShape : public IShape
 {
 private:
-    std::vector<unsigned int> indices;
+    std::vector<sf::Vector3f> normals;
     std::vector<sf::Vector3f> vertices;
+
+    std::vector<unsigned int> indices;
+    std::vector<unsigned int> normalIndices;
 
 public:
     MeshShape(ILoader * loader);

@@ -20,12 +20,12 @@ int main()
     window.resetGLStates();
     sf::Clock deltaClock;
 
-    int currentExercise = 2;
+    int currentExercise = 0;
     
     std::vector<IExercise*> exercises;
+    exercises.push_back(new CameraExercise(window));
     exercises.push_back(new TransformationExercise(window));
     exercises.push_back(new BezierExercise(window));
-    exercises.push_back(new CameraExercise(window));
     exercises.push_back(new DelaunayExercise(window));
     
     exercises.at(currentExercise)->Init();
