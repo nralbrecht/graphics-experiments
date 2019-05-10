@@ -23,8 +23,8 @@ CameraExercise::CameraExercise(const sf::RenderWindow &window)
 }
 
 CameraExercise::~CameraExercise() {
-    for (int i = 0; i < shapes.size(); ++i) {
-        delete shapes[i];
+    for (int i = 0; i < objects.size(); ++i) {
+        delete objects[i];
     }
 }
 
@@ -32,16 +32,23 @@ void CameraExercise::Init() {
     eye = glm::vec3(10, 0, 0);
     la = glm::vec3(0, 0, 0);
     up = glm::vec3(0, 1, 0);
+
+    zoom = 40.0f;
+    isMouseDown = false;
     angleX = M_PI / 4.0f;
     angleY = M_PI / 3.0f;
-    radius = 10.0f;
-    isMouseDown = false;
-    zoom = 40.0f;
 
-    shapes.push_back(new CubeShape(sf::Vector3f(0.0f, 0.0f, 0.0f)));
-    shapes.push_back(new SphereShape(500, sf::Vector3f(0.0f, 0.0f, 0.0f), 0.5f));
-    shapes.push_back(new MeshShape(new PlyLoader("./resources/bun_zipper.ply")));
-    shapes.push_back(new MeshShape(new ObjLoader("./resources/cube.obj")));
+    objectNames.push_back("Cube");
+    objects.push_back(new CubeShape(sf::Vector3f(0.0f, 0.0f, 0.0f)));
+    objectNames.push_back("Sphere");
+    objects.push_back(new SphereShape(500, sf::Vector3f(0.0f, 0.0f, 0.0f), 0.5f));
+
+    std::vector<std::string> files = listFilesInDirectory("./resources");
+    for (std::string file: files) {
+        objectNames.push_back(file);
+        objects.push_back(new MeshShape(new ObjLoader(("./resources/" + file).c_str())));
+    }
+
     isInitialized = true;
 }
 
@@ -108,9 +115,9 @@ void CameraExercise::Update(float timeDelta) {
     }
 
     sf::Vector3f unnormalizedEye(
-        radius * cos(deltaX) * sin(deltaY),
-        radius * cos(deltaY),
-        radius * sin(deltaX) * sin(deltaY));
+        10.0f * cos(deltaX) * sin(deltaY),
+        10.0f * cos(deltaY),
+        10.0f * sin(deltaX) * sin(deltaY));
 
     sf::Vector3f temp = normalizeToLength(unnormalizedEye, (0.0001591*zoom*zoom*zoom) - (0.002788*zoom*zoom) + (0.03712*zoom) + 0.1);
     eye.x = temp.x;
@@ -139,11 +146,19 @@ void CameraExercise::UpdateProjection() {
 void CameraExercise::Draw() {
     UpdateModelView();
 
-    shapes.at(selectedObject)->Draw();
+    objects.at(selectedObject)->Draw();
 }
 
 void CameraExercise::DrawGUI(const char* name) {
     ImGui::Begin(name);
-        ImGui::ListBox("Object", &selectedObject, objects, shapes.size());
+        if (ImGui::ListBoxHeader("Object")) {
+            for (int i = 0; i < objectNames.size(); ++i) {
+                if (ImGui::Selectable(objectNames.at(i).c_str(), selectedObject == i)) {
+                    selectedObject = i;
+                }
+            }
+
+            ImGui::ListBoxFooter();
+        }
     ImGui::End();
 }

@@ -12,16 +12,19 @@ class CameraExercise : public IExercise
 private:
     bool isInitialized;
     const sf::RenderWindow &window;
+
     glm::vec3 eye;
     glm::vec3 la;
     glm::vec3 up;
+
     float angleX;
     float angleY;
-    float radius;
 
     int selectedObject = 0;
-    const char* objects[4] = { "Cube", "Sphere", "Bunny", "Obj" };
-    std::vector<IShape*> shapes;
+
+    // const char* objects[4] = { "Cube", "Sphere", "Bunny", "Obj" };
+    std::vector<IShape*> objects;
+    std::vector<std::string> objectNames;
 
     float zoom;
     bool isMouseDown;

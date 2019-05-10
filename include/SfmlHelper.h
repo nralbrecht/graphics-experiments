@@ -22,3 +22,4 @@ sf::Vector3f getColor(float x);
 
 // String Helper
 std::vector<std::string> split(const std::string& s, char delimiter);
+std::vector<std::string> listFilesInDirectory(const std::string& path);

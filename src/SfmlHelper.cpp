@@ -3,6 +3,7 @@
 #include <vector>
 #include <sstream>
 
+#include <tinydir.h>
 #include <SFML/OpenGL.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -151,4 +152,25 @@ std::vector<std::string> split(const std::string& s, char delimiter)
       tokens.push_back(token);
    }
    return tokens;
+}
+
+std::vector<std::string> listFilesInDirectory(const std::string& path) {
+    tinydir_dir dir;
+    tinydir_open(&dir, path.c_str());
+
+    std::vector<std::string> files;
+
+    while (dir.has_next)
+    {
+        tinydir_file file;
+        tinydir_readfile(&dir, &file);
+
+        if (!file.is_dir && file.is_reg) {
+            files.push_back(file.name);
+        }
+
+        tinydir_next(&dir);
+    }
+
+    return files;
 }
