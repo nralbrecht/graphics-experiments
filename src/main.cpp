@@ -1,3 +1,4 @@
+#include <cmath>
 #include <vector>
 
 #include <imgui.h>
@@ -20,6 +21,14 @@ int main()
     window.resetGLStates();
     sf::Clock deltaClock;
 
+    int frameBufferSize = 20;
+
+    std::vector<float> frames;
+    frames.insert(frames.begin(), frameBufferSize, 0.0f);
+
+    std::vector<float> frameTimes;
+    frameTimes.insert(frameTimes.begin(), frameBufferSize, 0.0f);
+
     int currentExercise = 0;
     
     std::vector<IExercise*> exercises;
@@ -31,9 +40,13 @@ int main()
     exercises.at(currentExercise)->Init();
     exercises.at(currentExercise)->UpdateProjection();
 
+    unsigned long tick = 0; 
+
     bool running = true;
     while (running)
     {
+        tick++;
+
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -54,6 +67,23 @@ int main()
 
         sf::Time deltaTime = deltaClock.restart();
         ImGui::SFML::Update(window, deltaTime);
+        frameTimes.pop_back();
+        frameTimes.insert(frameTimes.begin(), 1, deltaTime.asSeconds());
+
+        float tempTimeSum = 0;
+        for(float &frameTime: frameTimes) {
+            tempTimeSum += frameTime;
+        }
+
+        if (tick % frameTimes.size() == 0) {
+            frames.pop_back();
+            frames.insert(frames.begin(), 1, (frameTimes.size() / tempTimeSum));
+        }
+        
+        ImGui::Begin("Config");
+            ImGui::PlotLines(("FPS (" + std::to_string((int)std::round(frames.back())) + ")").c_str(), &frames[0], frames.size(), 0, NULL, 0.0f, FLT_MAX);
+            ImGui::Separator();
+        ImGui::End();
         
         ImGui::SetNextWindowPos(sf::Vector2f(0.0f, 0.0f));
         ImGui::SetNextWindowSize(sf::Vector2f(window.getSize().x, -1.0f));
@@ -85,7 +115,6 @@ int main()
         ImGui::PopStyleVar();
 
         exercises.at(currentExercise)->Update(deltaTime.asSeconds());
-
         glEnable(GL_DEPTH_TEST);
         glClearColor(0.1f,0.1f,0.1f,0.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
